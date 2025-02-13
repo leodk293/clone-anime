@@ -9,10 +9,15 @@ export default function Nav() {
     <header className=" flex flex-wrap gap-5 justify-center py-5 bg-[#26252c] md:justify-evenly md:gap-0">
       <Logo />
 
-      <nav className=" self-center text-xl flex flex-row gap-4 font-semibold text-white">
+      {/* <nav className=" self-center text-xl flex flex-row gap-4 font-semibold text-white">
         <Link href={""}>List</Link>
         <Link href={""}>Home</Link>
         <Link href={""}>Upcoming</Link>
+      </nav> */}
+
+      <nav className=" self-center text-xl flex flex-row gap-4 font-semibold text-white">
+        <Link href={""}>Anime</Link>
+        <Link href={""}>Manga</Link>
       </nav>
 
       <Link className=" text-xl font-semibold self-center text-white" href={""}>
