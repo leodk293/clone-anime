@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, use } from "react";
-import { Star } from "lucide-react";
+import { Star, RotateCcw } from "lucide-react";
 import Link from "next/link";
 import { nanoid } from "nanoid";
 import Loader from "@/app/components/loader/Loader";
@@ -49,14 +49,14 @@ const InfoItem = ({ label, value }) => {
 };
 
 const SectionHeader = ({ title }) => (
-  <div className="flex flex-col">
+  <div className=" flex flex-col">
     <div className="flex flex-row gap-2">
       <div className="border border-transparent bg-black p-1">
         <Star color="#ffffff" />
       </div>
       <h1 className="text-xl font-bold">{title}</h1>
     </div>
-    <span className="w-full h-[2px] bg-gray-700" />
+    <span className="w-full h-[1px] bg-gray-900" />
   </div>
 );
 
@@ -204,13 +204,17 @@ export default function AnimePage({ params }) {
 
             <div className="mt-10">
               <SectionHeader title="Synopsis" />
+
               <div className="text-gray-700 font-semibold mt-4">
                 <ReadMore text={data.synopsis} maxLength={180} />
               </div>
             </div>
 
             <div className="mt-10">
-              <SectionHeader title="Episodes List" />
+              <SectionHeader
+                title={`Episodes List (${data.episodes.length})`}
+              />
+
               <div className="mt-10 flex flex-col gap-2">
                 {data.episodes.length > 0 ? (
                   data.episodes.map((episode) => (
@@ -219,9 +223,9 @@ export default function AnimePage({ params }) {
                         className="rounded-[5px] p-1 hover:bg-[#f1f1f1] duration-500"
                         href={`/anime/${id}/episode/${episode}`}
                       >
-                        <div className="font-semibold flex flex-row justify-between ">
+                        <div className="font-semibold text-[13px] flex flex-row justify-between md:text-[16px] ">
                           <p className="text-black">
-                            {data.title_english} - {episode}
+                            {data.title} - {episode}
                           </p>
                           {episodeTitles[episode] && (
                             <p className="text-gray-500 italic">
@@ -243,7 +247,7 @@ export default function AnimePage({ params }) {
               </div>
             </div>
 
-            <Related anime_id={id} />
+            {data.status === "Not yet aired" ? null : <Related anime_id={id} />}
           </div>
 
           <div className="lg:w-80">
