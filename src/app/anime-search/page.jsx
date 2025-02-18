@@ -58,15 +58,15 @@ export default function SearchPage() {
     data: [],
   });
 
-  const animeName = useMemo(() => 
-    searchParams.get("anime") || "", 
+  const animeName = useMemo(
+    () => searchParams.get("anime") || "",
     [searchParams]
   );
 
   const fetchAnime = async (query) => {
     if (!query) return;
-    
-    setSearchState(prev => ({
+
+    setSearchState((prev) => ({
       ...prev,
       loading: true,
       error: false,
@@ -76,22 +76,22 @@ export default function SearchPage() {
       const response = await fetch(
         `https://api.jikan.moe/v4/anime?q=${query}&order_by=popularity&sort=asc&sfw`
       );
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+
       const { data } = await response.json();
-      
-      setSearchState(prev => ({
+
+      setSearchState((prev) => ({
         ...prev,
         loading: false,
         data,
         query,
       }));
     } catch (error) {
-      console.error('Error fetching anime:', error);
-      setSearchState(prev => ({
+      console.error("Error fetching anime:", error);
+      setSearchState((prev) => ({
         ...prev,
         loading: false,
         error: true,

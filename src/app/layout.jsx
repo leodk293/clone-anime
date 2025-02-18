@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
         <Nav />
 
         <div className=" flex flex-col">
-          <nav className=" py-5 text-xl text-gray-700 font-bold flex flex-wrap justify-center gap-7 md:gap-10">
+          <nav className=" py-5 text-gray-700 font-bold flex flex-wrap justify-center gap-7 md:gap-10 md:text-xl">
             <Link className={"hover:text-blue-500 duration-300"} href={"/"}>List</Link>
             <Link className={"hover:text-blue-500 duration-300"} href={"/airing"}>Airing</Link>
             <Link className={"hover:text-blue-500 duration-300"} href={"/upcoming"}>Upcoming</Link>

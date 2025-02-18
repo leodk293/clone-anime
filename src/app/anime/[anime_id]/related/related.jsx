@@ -103,7 +103,7 @@ export default function Related({ anime_id }) {
       {relatedAnime.error ? (
         <div className="text-center py-4">
           <p className="text-lg sm:text-xl font-bold text-red-900 mb-4">
-            Something went wrong. The API might be rate limited.
+            Something went wrong.
           </p>
           <button
             onClick={handleRetry}

@@ -6,6 +6,7 @@ import { nanoid } from "nanoid";
 import Loader from "@/app/components/loader/Loader";
 import ReadMore from "@/app/components/readMore";
 import SearchAnime from "@/app/components/Search";
+import "./related/styles.css";
 
 import Related from "./related/related";
 
@@ -67,10 +68,10 @@ export default function AnimePage({ params }) {
     data: null,
     loading: false,
   });
+
   const [episodeTitles, setEpisodeTitles] = useState({});
 
   const resolvedParams = use(params);
-
   const id = resolvedParams.anime_id;
 
   const fetchAnimeData = async () => {
@@ -92,7 +93,6 @@ export default function AnimePage({ params }) {
         loading: false,
       });
 
-      // Fetch episode titles if there are episodes
       if (data.episodes > 0) {
         const episodeResponse = await fetch(
           `https://api.jikan.moe/v4/anime/${id}/episodes`
@@ -111,8 +111,27 @@ export default function AnimePage({ params }) {
     }
   };
 
+  const [characters, setCharacters] = useState([]);
+
+  async function fetchAnimeCharacters() {
+    try {
+      const res = await fetch(
+        `https://api.jikan.moe/v4/anime/${id}/characters`
+      );
+      if (!res.ok) {
+        throw new Error(res.status);
+      }
+      const result = await res.json();
+      setCharacters(result.data);
+    } catch (error) {
+      console.error(error.message);
+      setCharacters([]);
+    }
+  }
+
   useEffect(() => {
     fetchAnimeData();
+    fetchAnimeCharacters();
   }, [id]);
 
   if (animeData.error) {
@@ -246,6 +265,36 @@ export default function AnimePage({ params }) {
                 )}
               </div>
             </div>
+
+            {characters.length > 0 ? (
+              <div className="flex flex-col gap-5 mt-10">
+                <h1 className="font-bold md:text-xl">
+                  <span className="font-extrabold">{data.title}</span>&apos;s
+                  Characters
+                </h1>
+                <div className="scrollbar-custom flex w-[20rem] flex-row overflow-x-scroll gap-5 pb-4 md:w-[60rem]">
+                  {characters.map((character) => (
+                    <Link
+                      key={character.character.mal_id}
+                      href={`/characters/anime-character/${character.character.mal_id}`}
+                    >
+                      <div className="border border-gray-300 bg-white shadow rounded-[5px] p-1 w-32 sm:w-40 overflow-hidden hover:bg-slate-100 duration-500 flex flex-col items-center gap-1">
+                        <img
+                          className="w-full h-48 sm:h-56 object-cover rounded-lg"
+                          src={character.character.images.jpg.image_url}
+                          alt={character.character.name}
+                        />
+                        <p className="font-semibold">{character.role}</p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <p className="text-lg sm:text-xl font-bold text-red-900 h-auto px-4 text-center">
+                Something went wrong. Please try again later.
+              </p>
+            )}
 
             {data.status === "Not yet aired" ? null : <Related anime_id={id} />}
           </div>

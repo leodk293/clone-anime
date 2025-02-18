@@ -1,18 +1,23 @@
 const animeList = [
     "Dragon ball",
     "Bleach",
-    "Naruto",
     "Dororo",
     "Yu-Gi-Oh",
-    "Death Note",
-    "The Apothecary Diaries"
+    "Saint Seiya",
+    "Kimetsu No Yaiba (Demon Slayer)",
+    "Kusuriya no Hitorigoto (The Apothecary Diaries)",
+    "Parasyte",
+    "Dr.Stone",
+    "Sousou no Frieren",
+
 ]
 
-const response = await fetch("https://api.jikan.moe/v4/top/anime?filter=bypopularity");
-const result = await response.json();
+const popular = await fetch("https://api.jikan.moe/v4/top/anime?filter=bypopularity");
+const popularResult = await popular.json();
 
-for(let i = 0; i<result.data.length; i++){
-    animeList.push(result.data[i].title);
+
+for (let i = 0; i < popularResult.data.length; i++) {
+    animeList.push(popularResult.data[i].title);
 }
 
 export default animeList;

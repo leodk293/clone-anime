@@ -2,18 +2,18 @@
 import React, { useState } from "react";
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
-import animeList from "./animeList";
 import { nanoid } from "nanoid";
+import mangaList from "./mangaList";
 
-export default function SearchAnime() {
-  const [animeName, setAnimeName] = useState("");
+export default function SearchManga() {
+  const [mangaName, setMangaName] = useState("");
   const router = useRouter();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (animeName.trim()) {
-      router.push(`/anime-search?anime=${encodeURIComponent(animeName)}`);
-      setAnimeName("");
+    if (mangaName.trim()) {
+      router.push(`/manga-search?manga=${encodeURIComponent(mangaName)}`);
+      setMangaName("");
     }
   };
 
@@ -24,19 +24,17 @@ export default function SearchAnime() {
     >
       <Search className="self-center" />
       <input
-        list="anime"
+        list="manga"
         required
         className="self-center outline-none text-black text-xl font-semibold placeholder:text-black"
         type="text"
-        placeholder="Search for an anime..."
-        onChange={(e) => setAnimeName(e.target.value)}
-        value={animeName}
+        placeholder="Search for a manga..."
+        onChange={(e) => setMangaName(e.target.value)}
+        value={mangaName}
       />
-      <datalist id="anime">
-        {animeList.map((anime) => (
-          <option key={nanoid(10)} value={anime}>
-            {anime}
-          </option>
+      <datalist id="manga">
+        {mangaList.map((manga) => (
+          <option key={nanoid(10)}>{manga}</option>
         ))}
       </datalist>
     </form>

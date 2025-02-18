@@ -9,14 +9,11 @@ export default function Nav() {
     <header className=" z-50 flex flex-wrap gap-5 justify-center py-5 bg-[#26252c] md:justify-evenly md:gap-0">
       <Logo />
 
-      <nav className=" self-center text-xl flex flex-row gap-4 font-semibold text-white">
-        <Link href={"/"}>Anime</Link>
-        <Link href={""}>Manga</Link>
+      <nav className=" self-center text-xl flex flex-row gap-10 font-bold text-white">
+        <Link className=" underline-offset-4 hover:underline hover:text-orange-800 duration-300" href={"/"}>Anime</Link>
+        <Link className=" underline-offset-4 hover:underline hover:text-orange-800 duration-300" href={"/manga"}>Manga</Link>
+        <Link className=" underline-offset-4 hover:underline hover:text-orange-800 duration-300" href={"/characters"}>Characters</Link>
       </nav>
-
-      <Link className=" text-xl font-semibold self-center text-white" href={""}>
-        Characters
-      </Link>
 
       <button className=" flex flex-row gap-2 justify-center items-center text-white font-semibold text-xl border border-transparent bg-red-700 text-wrap rounded-[50px] px-4 py-2">
         <Image
