@@ -1,11 +1,12 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, Suspense } from "react";
 import Link from "next/link";
 import { nanoid } from "nanoid";
 import Loader from "../components/loader/Loader";
 import ReadMore from "../components/readMore";
 import SearchAnime from "../components/Search";
+
 
 const AnimeCard = ({ anime }) => (
   <div className="flex flex-col gap-2">
@@ -49,7 +50,7 @@ const AnimeGrid = ({ animes }) => (
   </div>
 );
 
-export default function SearchPage() {
+function SearchPageContent() {
   const searchParams = useSearchParams();
   const [searchState, setSearchState] = useState({
     query: "",
@@ -135,5 +136,13 @@ export default function SearchPage() {
         <SearchAnime />
       </div>
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<Loader />}>
+      <SearchPageContent />
+    </Suspense>
   );
 }

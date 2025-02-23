@@ -1,11 +1,12 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, Suspense } from "react";
 import Link from "next/link";
 import { nanoid } from "nanoid";
 import Loader from "../components/loader/Loader";
 import ReadMore from "../components/readMore";
 import SearchManga from "../components/SearchManga";
+
 
 const MangaCard = ({ manga }) => (
   <div className="flex flex-col gap-2">
@@ -32,6 +33,7 @@ const MangaCard = ({ manga }) => (
   </div>
 );
 
+
 const SearchHeader = ({ title }) => (
   <header className="flex flex-col gap-2">
     <h1 className="font-bold capitalize text-2xl sm:text-3xl text-gray-900">
@@ -41,6 +43,7 @@ const SearchHeader = ({ title }) => (
   </header>
 );
 
+
 const MangaGrid = ({ mangas }) => (
   <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 md:gap-8 w-full justify-items-center">
     {mangas.map((manga) => (
@@ -49,7 +52,8 @@ const MangaGrid = ({ mangas }) => (
   </div>
 );
 
-export default function SearchPage() {
+
+function SearchPageContent() {
   const searchParams = useSearchParams();
   const [searchState, setSearchState] = useState({
     query: "",
@@ -135,5 +139,14 @@ export default function SearchPage() {
         <SearchManga />
       </div>
     </div>
+  );
+}
+
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<Loader />}>
+      <SearchPageContent />
+    </Suspense>
   );
 }
