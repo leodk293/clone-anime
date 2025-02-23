@@ -6,6 +6,7 @@ import { nanoid } from "nanoid";
 import mangaList from "./mangaList";
 
 export default function SearchManga() {
+  
   const [mangaName, setMangaName] = useState("");
   const router = useRouter();
 
@@ -16,6 +17,7 @@ export default function SearchManga() {
       setMangaName("");
     }
   };
+
 
   return (
     <form
@@ -28,13 +30,13 @@ export default function SearchManga() {
         required
         className="self-center outline-none text-black text-xl font-semibold placeholder:text-black"
         type="text"
-        placeholder="Search for a manga..."
+        placeholder={"Search for a manga..."}
         onChange={(e) => setMangaName(e.target.value)}
         value={mangaName}
       />
       <datalist id="manga">
         {mangaList.map((manga) => (
-          <option key={nanoid(10)}>{manga}</option>
+          <option value={manga} key={nanoid(10)}>{manga}</option>
         ))}
       </datalist>
     </form>

@@ -2,8 +2,8 @@
 import React, { useState } from "react";
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
-import animeList from "./animeList";
 import { nanoid } from "nanoid";
+import animeList from "./animeList";
 
 export default function SearchAnime() {
   const [animeName, setAnimeName] = useState("");
@@ -28,7 +28,7 @@ export default function SearchAnime() {
         required
         className="self-center outline-none text-black text-xl font-semibold placeholder:text-black"
         type="text"
-        placeholder="Search for an anime..."
+        placeholder={"Search for an anime..."}
         onChange={(e) => setAnimeName(e.target.value)}
         value={animeName}
       />

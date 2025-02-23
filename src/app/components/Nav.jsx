@@ -34,7 +34,7 @@ export default function Nav() {
       </nav>
 
       <div className=" self-center flex flex-wrap gap-2">
-        <button className=" flex flex-row gap-2 justify-center items-center text-white font-semibold text-xl border border-transparent bg-red-700 text-wrap rounded-[50px] px-3 py-1">
+        <button className=" flex flex-row gap-2 justify-center items-center text-black font-semibold text-xl border border-transparent bg-white text-wrap rounded-[50px] px-3 py-1 hover:bg-gray-200 duration-300">
           <Image
             src={google}
             alt="GOOGLE"
