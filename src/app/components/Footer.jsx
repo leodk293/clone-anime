@@ -137,7 +137,7 @@ export default function Footer() {
         }
         return (
           <Link
-            className="text-gray-200 font-semibold hover:text-gray-400 duration-300"
+            className="text-gray-200 font-semibold underline underline-offset-2 hover:text-gray-400 duration-300"
             key={item.mal_id}
             href={href}
           >
