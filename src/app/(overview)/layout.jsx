@@ -1,12 +1,11 @@
-'use client'
+"use client";
 import React from "react";
 import Link from "next/link";
 import { nanoid } from "nanoid";
 import { usePathname } from "next/navigation";
 
 export default function Layout({ children }) {
-  const p = usePathname();
-  
+  const pathname = usePathname();
 
   return (
     <main className="flex flex-col w-full min-h-screen">
@@ -26,7 +25,11 @@ export default function Layout({ children }) {
                   transition-colors duration-300
                   focus:outline-none focus:ring-2 focus:ring-blue-400
                   rounded-md text-gray-700 hover:bg-blue-400 hover:text-white
-                  ${p === `/list-anime/${index + 1}` ? 'bg-blue-400 text-white' : 'bg-gray-200'}
+                  ${
+                    pathname === `/list-anime/${index + 1}`
+                      ? "bg-blue-400 text-white"
+                      : "bg-gray-200"
+                  }
                 `}
               >
                 {index + 1}

@@ -165,7 +165,7 @@ export default function Episode({ params }) {
               {epData.data && epData.data.synopsis}
             </p>
           ) : (
-            <p className=" flex justify-center items-center text-center h-auto text-xl font-bold text-gray-600 md:h-[10rem]">No available yet</p>
+            <p className=" flex justify-center items-center text-center h-auto text-xl font-bold text-gray-600 md:h-[10rem]">Sorry, Episode not found</p>
           )}
           <span className=" h-[1px] bg-gray-500" />
           <div className=" translate-y-[-1rem] md:translate-y-[-9rem]">
