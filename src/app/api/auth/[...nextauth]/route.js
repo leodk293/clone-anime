@@ -12,13 +12,13 @@ const authOptions = {
     ],
     callbacks: {
         async signIn({ user, account }) {
-            if (account.provider === "google") {
-                const { name, email } = user;
-                try {
-                    await connectMongoDB();
-                    const userExists = await User.findOne({ email });
 
-                    if (!userExists) {
+            if (account.provider === "google") {
+                const { name, email, image } = user;
+                const isUserExits = await User.findOne({ email })
+                if (!isUserExits) {
+                    try {
+                        await connectMongoDB();
                         const res = await fetch(`${process.env.NEXTAUTH_URL}/api/users`, {
                             method: "POST",
                             headers: {
@@ -27,6 +27,7 @@ const authOptions = {
                             body: JSON.stringify({
                                 fullName: name,
                                 email,
+                                image
                             }),
                         });
 
@@ -34,25 +35,42 @@ const authOptions = {
                             console.error("Failed to create user");
                             return false;
                         }
-                    }
 
-                    else {
-                        console.log("User already exists");
+                        return true;
+                    } catch (error) {
+                        console.log(error);
                         return false;
                     }
 
-                    return true;
-                } catch (error) {
-                    console.log(error);
-                    return false;
                 }
+                else {
+                    // Update the user's information if necessary
+                    await connectMongoDB();
+                    await User.findByIdAndUpdate(isUserExits._id, {
+                        fullName: name,
+                        image
+                    });
+                    return true;
+                }
+
             }
 
             return true;
+        },
+
+        async session({ session, user, token }) {
+            // Include the user's MongoDB ID in the session object
+            if (session.user) {
+                await connectMongoDB();
+                const dbUser = await User.findOne({ email: session.user.email });
+                if (dbUser) {
+                    session.user.id = dbUser._id.toString(); // Add the user ID to the session
+                }
+            }
+            return session;
         },
     },
 };
 
 const handler = NextAuth(authOptions);
-
 export { handler as GET, handler as POST };

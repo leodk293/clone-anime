@@ -9,7 +9,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function Nav() {
   const { status, data: session } = useSession();
-  console.log(status, session);
+  //console.log(status, session);
 
   const handleSignOut = async () => {
     await signOut({ callbackUrl: "/" });
@@ -17,7 +17,7 @@ export default function Nav() {
   const handelSignIn = async () => {
     // Just trigger the sign-in process
     // Don't try to redirect here
-    await signIn("google", { callbackUrl: "/comments" });
+    await signIn("google", { callbackUrl: "/" });
   };
 
   return (

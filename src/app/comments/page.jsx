@@ -1,55 +1,146 @@
 "use client";
 import React from "react";
 import { useState, useEffect } from "react";
-import CommentBox from "../components/CommentBox";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 import Link from "next/link";
+import { MdDelete } from "react-icons/md";
+import { FaEdit } from "react-icons/fa";
 
 export default function Comments() {
-  const { status, data: session } = useSession();
-  return (
-    <div className=" mt-[60px] flex flex-col items-center max-w-[70rem] mx-auto">
-      {status === "authenticated" ? (
-        session && (
-          <h1 className=" font-bold text-xl md:text-2xl">
-            Welcome to{" "}
-            <Link className=" underline " href={"/"}>
-              <span className=" font-extrabold text-blue-800">clone</span>anime
-            </Link>{" "}
-            {session.user.name}, leave us a comment{" "}
-          </h1>
-        )
-      ) : (
-        <h1 className=" font-bold text-xl md:text-2xl">
-          Signin to leave us a comment
-        </h1>
-      )}
-      <form className=" mt-5 w-full flex flex-col gap-5">
-        <input
-          className=" text-xl shadow font-bold p-2 outline-none rounded-[5px] bg-[#f1f1f1]"
-          placeholder="Enter the title"
-          type="text"
-        />
-        <textarea
-          className=" text-xl font-semibold shadow p-2 outline-none rounded-[5px] bg-[#f1f1f1]"
-          placeholder="Write your post ..."
-          name=""
-          id=""
-        ></textarea>
-        <button className="text-white shadow text-xl font-semibold px-4 py-2 rounded-[5px] w-[200px] border border-transparent bg-blue-700">
-          Submit
-        </button>
-      </form>
+  const [comments, setComments] = useState([]);
+  const { data: session, status } = useSession();
+  const authorId = session?.user?.id;
 
-      <div className=" w-full self-start mt-10 flex flex-col gap-10">
-        <p className="text-xl self-start font-semibold ">
-          No comments yet, be the first.
-        </p>
-        <CommentBox
-          username={"Mark"}
-          title={"Bleach"}
-          comment={"bleach is so fucking underrated anime"}
-        />
+  const router = useRouter();
+
+  async function getAllComments() {
+    try {
+      const response = await fetch(`http://localhost:3001/api/posts`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        setComments([]);
+        throw new Error(`Failed to fetch comments : ${response.status}`);
+      }
+
+      const result = await response.json();
+      setComments(result);
+      //console.log(result);
+    } catch (error) {
+      console.error("Failed to fetch comments", error);
+      setComments([]);
+    }
+  }
+
+  async function deleteComment(commentId, userId) {
+    if (userId !== authorId) {
+      alert("You are not allowed to delete this comment");
+      return;
+    } else {
+      const confirmed = confirm("Are you sure you want to delete");
+      if (confirmed) {
+        try {
+          if (userId !== authorId) {
+            alert("You are not allowed to delete this comment");
+          } else {
+            const response = await fetch(
+              `http://localhost:3001/api/posts?id=${commentId}&userId=${userId}`,
+              {
+                method: "DELETE",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+            if (!response.ok) {
+              throw new Error(`Failed to delete comment : ${response.status}`);
+            }
+            router.refresh();
+            getAllComments();
+          }
+        } catch (error) {
+          console.error("Failed to delete comment", error);
+        }
+      }
+    }
+  }
+
+  useEffect(() => {
+    getAllComments();
+  }, []);
+
+  return (
+    <div className=" mt-[60px] flex flex-col max-w-[70rem] mx-auto">
+      <div className=" flex flex-col gap-5 mt-10 ">
+        <div className=" flex flex-row justify-between">
+          <h1 className="text-4xl font-bold self-center text-black">
+            Comments
+          </h1>
+          <Link className=" self-center" href={"/add-comment"}>
+            <button className=" border border-transparent bg-black px-4 py-2 text-white font-semibold rounded-[50px]">
+              Add a comment
+            </button>
+          </Link>
+        </div>
+
+        {comments.length && comments.length > 0 ? (
+          comments.map((comment) => (
+            <div
+              className=" border border-gray-400 px-10 py-5 shadow rounded-[5px] flex flex-row justify-between"
+              key={comment._id}
+            >
+              <div className=" flex flex-row gap-2">
+                <Image
+                  src={comment.userImage}
+                  alt={comment.author.fullName}
+                  width={50}
+                  height={50}
+                  className=" self-center object-cover rounded-[50%]"
+                />
+                <div className=" flex flex-col">
+                  <p className="font-bold">@{comment.author.fullName}</p>
+                  <div className=" flex flex-col">
+                    <p className=" font-extrabold">{comment.title}</p>
+                    <p>{comment.content}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className=" self-center flex flex-row gap-4">
+                <button
+                  onClick={() => deleteComment(comment._id, comment.author._id)}
+                >
+                  <MdDelete size={30} />
+                </button>
+                {comment.author._id === authorId ? (
+                  <Link href={`/edit-post/${comment._id}`}>
+                    <button>
+                      <FaEdit size={30} />
+                    </button>
+                  </Link>
+                ) : (
+                  <button
+                    onClick={() => {
+                      alert("You are not allowed to edit this comment");
+                    }}
+                  >
+                    <FaEdit size={30} />
+                  </button>
+                )}
+              </div>
+            </div>
+          ))
+        ) : (
+          <p className=" text-xl text-center font-semibold md:h-[10rem]">
+            No comments yet, be the first
+          </p>
+        )}
       </div>
     </div>
   );

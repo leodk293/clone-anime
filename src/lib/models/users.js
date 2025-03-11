@@ -8,9 +8,14 @@ const userSchema = new Schema(
         },
         email: {
             type: String,
-            unique:true,
+            unique: true,
             required: true
         },
+        image: {
+            type: String,
+            required: true
+
+        }
 
     },
     { timestamps: true }

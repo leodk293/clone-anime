@@ -22,6 +22,10 @@ var userSchema = new _mongoose.Schema({
     type: String,
     unique: true,
     required: true
+  },
+  image: {
+    type: String,
+    required: true
   }
 }, {
   timestamps: true

@@ -14,6 +14,10 @@ const postSchema = new Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
             required: true
+        },
+        userImage: {
+            type: String,
+            required: true
         }
     },
     { timestamps: true }

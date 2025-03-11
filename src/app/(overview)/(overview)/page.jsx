@@ -66,7 +66,7 @@ export default function List({ params }) {
 
     if (animeList.data.length === 0) {
       return (
-        <p className="text-lg sm:text-xl px-4 text-center">No anime found.</p>
+        <p className="text-lg font-bold sm:text-xl px-4 text-center">No anime found.</p>
       );
     }
 
