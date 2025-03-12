@@ -1,12 +1,21 @@
 const animeList = [
     "Dragon ball",
     "Bleach",
+    "Naruto",
+    "Sakura no Onozuka",
+    "Kono Subarashii Sekai ni Shukufuku wo! ",
+    "Sword Art Online",
+    "Bakuman",
     "Dororo",
     "Black clover",
-    "Naruto",
     "Steins;Gate",
     "Solo leveling",
     "Re:Zero",
+    "K-On!",
+    "Akira",
+    "Berserk",
+    "Suzume no Tojimari",
+    "Kaguya-sama: Love Is War",
     "Yu-Gi-Oh",
     "Saint Seiya",
     "Kimetsu No Yaiba : Demon Slayer",
@@ -28,11 +37,20 @@ const animeList = [
     "Tokyo revengers",
     "Captain Tsubasa",
     "Fullmetal Alchemist: Brotherhood",
-    "My hero academia",
+    "My hero academia : Boku no Hero Academia",
     "Hunter x hunter",
     "Code Geass",
     "Kuroko no Basket",
-    "Haikyuu!!"
+    "Haikyuu!!",
+    "Sakura-sama: The Animation",
+    "Kuroko no Basuke",
+    "Kamisama no Nagasaki",
+    "Akame ga Kill",
+    "Fairy Tails",
+    "Seven deadly Sins",
+    "Violet Evergarden",
+    "Your Name"
+
 ]
 
 export default animeList

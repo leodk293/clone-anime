@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function AddPost() {
   const { data: session, status } = useSession();
@@ -12,6 +13,17 @@ export default function AddPost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const router = useRouter();
+
+  const notify = () => {
+    toast.success("Comment added successfully", {
+      position: "top-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
+  };
 
   async function addComment() {
     try {
@@ -32,8 +44,9 @@ export default function AddPost() {
         alert("Failed to add comment.");
         return;
       }
+      notify();
 
-      alert("Comment added successfully");
+      //alert("Comment added successfully");
       setTitle("");
       setContent("");
     } catch (error) {
@@ -48,8 +61,12 @@ export default function AddPost() {
       alert("Please sign in to add a new post.");
       return;
     }
+
     await addComment();
-    router.push("/comments");
+
+    setTimeout(() => {
+      router.push("/comments");
+    }, 1000);
   }
 
   return (
@@ -77,6 +94,7 @@ export default function AddPost() {
         >
           Submit
         </button>
+        <ToastContainer />
       </form>
     </div>
   );

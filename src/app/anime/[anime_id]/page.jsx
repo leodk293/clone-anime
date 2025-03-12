@@ -196,6 +196,7 @@ export default function AnimePage({ params }) {
                     value={data.score && `${data.score}/10`}
                   />
                   <InfoItem label="Type" value={data.type} />
+                  <InfoItem label="Episode duration" value={data.duration} />
                   <InfoItem label="Status" value={data.status} />
                   <InfoItem label="Studios" value={data.studios.join(", ")} />
                   <InfoItem label="String" value={data.aired.string} />

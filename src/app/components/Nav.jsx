@@ -15,8 +15,6 @@ export default function Nav() {
     await signOut({ callbackUrl: "/" });
   };
   const handelSignIn = async () => {
-    // Just trigger the sign-in process
-    // Don't try to redirect here
     await signIn("google", { callbackUrl: "/" });
   };
 
@@ -28,19 +26,19 @@ export default function Nav() {
 
       <nav className=" self-center text-xl flex flex-row gap-10 font-bold text-white">
         <Link
-          className=" underline-offset-4 hover:underline hover:text-orange-800 duration-300"
+          className=" underline-offset-4 hover:underline hover:text-blue-800 duration-300"
           href={"/"}
         >
           Anime
         </Link>
         <Link
-          className=" underline-offset-4 hover:underline hover:text-orange-800 duration-300"
+          className=" underline-offset-4 hover:underline hover:text-blue-800 duration-300"
           href={"/manga"}
         >
           Manga
         </Link>
         <Link
-          className=" underline-offset-4 hover:underline hover:text-orange-800 duration-300"
+          className=" underline-offset-4 hover:underline hover:text-blue-800 duration-300"
           href={"/characters"}
         >
           Characters

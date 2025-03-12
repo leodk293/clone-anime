@@ -77,9 +77,15 @@ export default function Comments() {
 
   return (
     <div className=" mt-[60px] flex flex-col max-w-[70rem] mx-auto">
+      <header className="flex flex-col gap-2">
+        <h1 className="font-bold text-2xl sm:text-3xl text-gray-900">
+          Share your thoughts with others
+        </h1>
+        <div className="h-1 rounded-full bg-blue-500 w-24 sm:w-32" />
+      </header>
       <div className=" flex flex-col gap-5 mt-10 ">
         <div className=" flex flex-row justify-between">
-          <h1 className="text-4xl font-bold self-center text-black">
+          <h1 className="text-2xl font-bold self-center text-black md:text-4xl">
             Comments
           </h1>
           <Link className=" self-center" href={"/add-comment"}>
@@ -104,7 +110,7 @@ export default function Comments() {
                   className=" self-center object-cover rounded-[50%]"
                 />
                 <div className=" flex flex-col">
-                  <p className="font-bold">@{comment.author.fullName}</p>
+                  <p className="font-bold">{comment.author.fullName}</p>
                   <div className=" flex flex-col">
                     <p className=" font-extrabold">{comment.title}</p>
                     <p>{comment.content}</p>
