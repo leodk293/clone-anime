@@ -3,7 +3,7 @@ import EditPostForm from "@/app/components/EditPostForm";
 
 async function getCommentById(id) {
   try {
-    const response = await fetch(`http://localhost:3001/api/posts/${id}`, {
+    const response = await fetch(`${process.env.API_URL}/api/posts/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

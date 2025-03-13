@@ -232,7 +232,9 @@ export default function AnimePage({ params }) {
 
             <div className="mt-10">
               <SectionHeader
-                title={`Episodes List (${data.episodes.length})`}
+                title={`Episodes List ${
+                  data.episodes.length > 0 ? `(${data.episodes.length})` : ''
+                }`}
               />
 
               <div className="mt-10 flex flex-col gap-2">
@@ -247,10 +249,12 @@ export default function AnimePage({ params }) {
                           <p className="text-black">
                             {data.title} - {episode}
                           </p>
-                          {episodeTitles[episode] && (
+                          {episodeTitles[episode] ? (
                             <p className="text-gray-500 italic">
                               {episodeTitles[episode]}
                             </p>
+                          ) : (
+                            <p>Not available yet</p>
                           )}
                         </div>
                       </Link>

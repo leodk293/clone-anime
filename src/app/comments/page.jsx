@@ -17,7 +17,7 @@ export default function Comments() {
 
   async function getAllComments() {
     try {
-      const response = await fetch(`http://localhost:3001/api/posts`, {
+      const response = await fetch(`/api/posts`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -50,7 +50,7 @@ export default function Comments() {
             alert("You are not allowed to delete this comment");
           } else {
             const response = await fetch(
-              `http://localhost:3001/api/posts?id=${commentId}&userId=${userId}`,
+              `/api/posts?id=${commentId}&userId=${userId}`,
               {
                 method: "DELETE",
                 headers: {

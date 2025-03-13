@@ -15,25 +15,35 @@ var connectMongoDB = function connectMongoDB() {
       switch (_context.prev = _context.next) {
         case 0:
           _context.prev = 0;
-          _context.next = 3;
+
+          if (!(_mongoose["default"].connection.readyState === 1)) {
+            _context.next = 4;
+            break;
+          }
+
+          console.log("Already connected to MongoDB");
+          return _context.abrupt("return");
+
+        case 4:
+          _context.next = 6;
           return regeneratorRuntime.awrap(_mongoose["default"].connect(process.env.MONGODB_URI));
 
-        case 3:
-          console.log("Connected to MONGODB");
-          _context.next = 9;
+        case 6:
+          console.log("Connected to MongoDB");
+          _context.next = 12;
           break;
 
-        case 6:
-          _context.prev = 6;
-          _context.t0 = _context["catch"](0);
-          console.log("Error connecting to database: ", _context.t0);
-
         case 9:
+          _context.prev = 9;
+          _context.t0 = _context["catch"](0);
+          console.error("Error connecting to database:", _context.t0);
+
+        case 12:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[0, 6]]);
+  }, null, null, [[0, 9]]);
 };
 
 exports.connectMongoDB = connectMongoDB;

@@ -25,7 +25,7 @@ const EditPostForm = ({ title, content, id }) => {
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      const response = await fetch(`http://localhost:3001/api/posts/${id}`, {
+      const response = await fetch(`/api/posts/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
