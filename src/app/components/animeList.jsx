@@ -4,6 +4,7 @@ const animeList = [
     "Naruto",
     "Sakura no Onozuka",
     "Kono Subarashii Sekai ni Shukufuku wo! ",
+    "Shangri-La Frontier",
     "Sword Art Online",
     "Bakuman",
     "Dororo",

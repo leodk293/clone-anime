@@ -68,7 +68,7 @@ const EditPostForm = ({ title, content, id }) => {
         ></textarea>
         <button
           type="submit"
-          className="text-white shadow text-xl font-semibold px-4 py-2 rounded-[5px] w-[200px] border border-transparent bg-blue-700"
+          className="text-white shadow text-xl font-semibold px-4 py-2 rounded-[5px] w-[200px] border border-transparent bg-blue-700 hover:bg-blue-500 duration-500"
         >
           Edit
         </button>

@@ -161,7 +161,7 @@ export default function Episode({ params }) {
           <span className=" h-[1px] bg-gray-500" />
 
           {epData.data ? (
-            <p className=" text-[15px] leading-9 md:text-xl md:leading-10">
+            <p className=" text-[15px] italic leading-9 md:text-[18px] md:leading-10">
               {epData.data && epData.data.synopsis}
             </p>
           ) : (

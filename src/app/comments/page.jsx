@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
+import Loader from "../components/loader/Loader";
 
 export default function Comments() {
   const [comments, setComments] = useState([]);
@@ -34,7 +35,11 @@ export default function Comments() {
       //console.log(result);
     } catch (error) {
       console.error("Failed to fetch comments", error);
-      setComments([]);
+      setComments({
+        error: true,
+        loading: false,
+        data: [],
+      });
     }
   }
 
@@ -84,15 +89,18 @@ export default function Comments() {
         <div className="h-1 rounded-full bg-blue-500 w-24 sm:w-32" />
       </header>
       <div className=" flex flex-col gap-5 mt-10 ">
-        <div className=" flex flex-row justify-between">
-          <h1 className="text-2xl font-bold self-center text-black md:text-4xl">
-            Comments
-          </h1>
-          <Link className=" self-center" href={"/add-comment"}>
-            <button className=" border border-transparent bg-black px-4 py-2 text-white font-semibold rounded-[50px]">
-              Add a comment
-            </button>
-          </Link>
+        <div className=" flex flex-col gap-1">
+          <div className=" flex flex-row justify-between">
+            <h1 className="text-2xl font-bold self-center text-black md:text-4xl">
+              Comments
+            </h1>
+            <Link className=" self-center" href={"/add-comment"}>
+              <button className=" border border-transparent bg-black px-4 py-2 text-white font-semibold rounded-[50px] md:text-xl hover:bg-gray-700 duration-500">
+                Add a comment
+              </button>
+            </Link>
+          </div>
+          <span className=" h-[1px] w-[70%] bg-gray-700 " />
         </div>
 
         {comments.length && comments.length > 0 ? (
@@ -113,7 +121,7 @@ export default function Comments() {
                   <p className="font-bold">{comment.author.fullName}</p>
                   <div className=" flex flex-col">
                     <p className=" font-extrabold">{comment.title}</p>
-                    <p>{comment.content}</p>
+                    <p className=" text-xl">{comment.content}</p>
                   </div>
                 </div>
               </div>
@@ -143,7 +151,7 @@ export default function Comments() {
             </div>
           ))
         ) : (
-          <p className=" text-xl text-center font-semibold md:h-[10rem]">
+          <p className=" text-xl text-left font-semibold md:h-[10rem]">
             No comments yet, be the first
           </p>
         )}

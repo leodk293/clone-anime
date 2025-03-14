@@ -219,13 +219,15 @@ export default function MangaData({ params }) {
               </div>
             </div>
 
-            <div className="mt-10">
-              <SectionHeader title="Background" />
+            {data.background ? (
+              <div className="mt-10">
+                <SectionHeader title="Background" />
 
-              <div className="text-gray-700 font-semibold mt-4">
-                <ReadMore text={data.background} maxLength={250} />
+                <div className="text-gray-700 font-semibold mt-4">
+                  <ReadMore text={data.background} maxLength={250} />
+                </div>
               </div>
-            </div>
+            ) : null}
 
             {mangaCharacters.error === true ? (
               <p className="text-lg sm:text-xl font-bold text-red-900 h-auto px-4 text-center">
@@ -262,7 +264,7 @@ export default function MangaData({ params }) {
                 </div>
               )
             ) : (
-              <p className=" text-center font-semibold text-blue-950">
+              <p className=" text-center text-xl font-semibold text-blue-950">
                 No characters found
               </p>
             )}
