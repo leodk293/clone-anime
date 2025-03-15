@@ -254,7 +254,7 @@ export default function AnimePage({ params }) {
                               {episodeTitles[episode]}
                             </p>
                           ) : (
-                            <p>Title not found</p>
+                            <p>Searching for title</p>
                           )}
                         </div>
                       </Link>
