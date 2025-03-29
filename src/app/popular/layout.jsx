@@ -1,7 +1,9 @@
-import React from 'react'
+import React from "react";
 
-export default function layout({children}) {
-  return (
-    <div>{children}</div>
-  )
+export const metadata = {
+  title: "Popular - Clone-Anime",
+};
+
+export default function layout({ children }) {
+  return <>{children}</>;
 }

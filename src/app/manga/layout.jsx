@@ -1,6 +1,10 @@
 import React from "react";
 import Link from "next/link";
 
+export const metadata = {
+  title: "Manga - Clone-Anime",
+};
+
 export default function layout({ children }) {
   return (
     <div className=" flex flex-col items-center gap-5">

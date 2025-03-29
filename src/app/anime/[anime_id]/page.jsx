@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, use } from "react";
-import { Star, RotateCcw } from "lucide-react";
+import { Star } from "lucide-react";
 import Link from "next/link";
 import { nanoid } from "nanoid";
 import Loader from "@/app/components/loader/Loader";
