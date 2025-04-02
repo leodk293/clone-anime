@@ -97,6 +97,12 @@ export default function Episode({ params }) {
   }, [episodeNumber]);
   return (
     <div className=" flex flex-col items-center mt-[70px] w-auto ">
+      <Link className="self-start" href={`/anime/${anime_id}`}>
+        <button className=" flex flex-row gap-1 justify-center items-center border border-transparent bg-black rounded-[5px] text-white text-xl px-4 py-2 font-semibold hover:translate-x-[-5px] duration-200">
+          <MoveLeft size={20} className=" self-center" />
+          <p className=" self-center">Go Back</p>
+        </button>
+      </Link>
       {epData.data && (
         <div className=" flex flex-col gap-4 items-center">
           <h1 className=" text-2xl text-center font-bold md:text-3xl">
@@ -165,7 +171,9 @@ export default function Episode({ params }) {
               {epData.data && epData.data.synopsis}
             </p>
           ) : (
-            <p className=" flex justify-center items-center text-center h-auto text-xl font-bold text-gray-600 md:h-[10rem]">Sorry, Episode not found</p>
+            <p className=" flex justify-center items-center text-center h-auto text-xl font-bold text-gray-600 md:h-[10rem]">
+              Sorry, Episode not found
+            </p>
           )}
           <span className=" h-[1px] bg-gray-500" />
           <div className=" translate-y-[-1rem] md:translate-y-[-9rem]">
