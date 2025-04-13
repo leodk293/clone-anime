@@ -2,9 +2,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { FaTwitter } from "react-icons/fa";
+import { FaYoutube, FaTwitter, FaFacebookF } from "react-icons/fa";
 import { FaLinkedinIn } from "react-icons/fa6";
-import { FaFacebookF } from "react-icons/fa";
 import Loader from "./loader/Loader";
 
 export default function Footer() {
@@ -195,7 +194,7 @@ export default function Footer() {
               <div className="group flex justify-center items-center border border-transparent bg-[#f1f1f1] rounded-[50%] p-2 transition-all duration-300 hover:bg-[#1DA1F2]">
                 <FaTwitter
                   className="text-black transition-all duration-300 group-hover:text-white"
-                  size={30}
+                  size={25}
                 />
               </div>
             </Link>
@@ -207,7 +206,7 @@ export default function Footer() {
               <div className="group flex justify-center items-center border border-transparent bg-[#f1f1f1] rounded-[50%] p-2 transition-all duration-300 hover:bg-[#0077B5]">
                 <FaLinkedinIn
                   className="text-black transition-all duration-300 group-hover:text-white"
-                  size={30}
+                  size={25}
                 />
               </div>
             </Link>
@@ -219,7 +218,19 @@ export default function Footer() {
               <div className="group flex justify-center items-center border border-transparent bg-[#f1f1f1] rounded-[50%] p-2 transition-all duration-300 hover:bg-[#1877F2]">
                 <FaFacebookF
                   className="text-black transition-all duration-300 group-hover:text-white"
-                  size={30}
+                  size={25}
+                />
+              </div>
+            </Link>
+
+            <Link
+              target="_blank"
+              href={"https://www.facebook.com/profile.php?id=100092315485742"}
+            >
+              <div className="group flex justify-center items-center border border-transparent bg-[#f1f1f1] rounded-[50%] p-2 transition-all duration-300 hover:bg-red-500">
+                <FaYoutube
+                  className="text-black transition-all duration-300 group-hover:text-white"
+                  size={25}
                 />
               </div>
             </Link>
