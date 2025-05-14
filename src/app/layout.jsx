@@ -58,6 +58,12 @@ export default function RootLayout({ children }) {
               >
                 Top
               </Link>
+              <Link
+                className={"hover:text-blue-500 duration-300"}
+                href={"/favorite"}
+              >
+                Favorite list
+              </Link>
             </nav>
             <span className=" w-full h-[1px] bg-gray-400 " />
           </div>

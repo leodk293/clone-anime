@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import "./styles.css";
 import Loader from "@/app/components/loader/Loader";
+import Image from "next/image";
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -134,7 +135,9 @@ export default function Related({ anime_id }) {
                     className="flex-shrink-0 hover:opacity-80 transition-opacity"
                   >
                     <div className="w-32 sm:w-40 rounded-lg overflow-hidden bg-blue-400 p-1 hover:opacity-90 duration-500 ">
-                      <img
+                      <Image
+                        width={100}
+                        height={100}
                         className="w-full h-48 sm:h-56 object-cover rounded-lg"
                         src={anime.entry.images.jpg.image_url}
                         alt={anime.entry.title}

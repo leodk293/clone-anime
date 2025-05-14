@@ -6,6 +6,9 @@ import { nanoid } from "nanoid";
 import Loader from "@/app/components/loader/Loader";
 import ReadMore from "@/app/components/readMore";
 import SearchAnime from "@/app/components/Search";
+import { useSession } from "next-auth/react";
+import { ToastContainer, toast } from "react-toastify";
+import Image from "next/image";
 import "./related/styles.css";
 
 import Related from "./related/related";
@@ -62,7 +65,9 @@ const SectionHeader = ({ title }) => (
 );
 
 export default function AnimePage({ params }) {
+  const { status, data: session } = useSession();
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [animeData, setAnimeData] = useState({
     error: false,
     data: null,
@@ -129,6 +134,66 @@ export default function AnimePage({ params }) {
     }
   }
 
+  const notify = () => {
+    toast.success("Added to favorite list", {
+      position: "top-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
+  };
+
+  const alreadyAdded = () => {
+    toast("Already added to favorite list", {
+      position: "top-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
+  };
+
+  const loginAlert = () => {
+    toast.error("Signin to add anime to your favorite.", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
+  };
+
+  async function addAnimeToFavorite(animeId) {
+    if (status === "unauthenticated") {
+      loginAlert();
+    }
+    try {
+      const response = await fetch("/api/favoriteAnime", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          animeId: animeId,
+          userId: session?.user?.id,
+        }),
+      });
+
+      if (response.ok) {
+        notify();
+      }
+      if (response.status === 409) {
+        alreadyAdded();
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
   useEffect(() => {
     fetchAnimeData();
     fetchAnimeCharacters();
@@ -159,12 +224,20 @@ export default function AnimePage({ params }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="flex-1 flex flex-col gap-6">
+            <button
+              onClick={() => addAnimeToFavorite(data.mal_id)}
+              className=" border border-transparent px-4 py-2 text-lg font-medium bg-black text-white rounded-[5px] cursor-pointer self-start hover:bg-gray-900 hover:translate-x-1 duration-200"
+            >
+              Add to favorite
+            </button>
             <h1 className="text-2xl sm:text-4xl text-gray-900">{data.title}</h1>
 
             <div className="flex flex-col gap-5 md:mt-5">
               <div className="flex flex-wrap gap-10">
                 <div className="self-center relative group">
-                  <img
+                  <Image
+                    width={200}
+                    height={300}
                     className="self-center border border-gray-700 object-cover md:h-[350px] w-full"
                     src={data.images.jpg.image_url}
                     alt={data.title}
@@ -284,7 +357,9 @@ export default function AnimePage({ params }) {
                       href={`/characters/anime-character/${character.character.mal_id}`}
                     >
                       <div className="border border-gray-300 bg-white shadow rounded-[5px] p-1 w-32 sm:w-40 overflow-hidden hover:bg-slate-100 duration-500 flex flex-col items-center gap-1">
-                        <img
+                        <Image
+                          width={100}
+                          height={100}
                           className="w-full h-48 sm:h-56 object-cover rounded-lg"
                           src={character.character.images.jpg.image_url}
                           alt={character.character.name}
@@ -315,6 +390,7 @@ export default function AnimePage({ params }) {
         onClose={() => setIsModalOpen(false)}
         trailerUrl={data.trailer?.embed_url}
       />
+      <ToastContainer />
     </main>
   );
 }

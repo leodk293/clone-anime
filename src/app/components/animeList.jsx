@@ -50,7 +50,9 @@ const animeList = [
     "Fairy Tails",
     "Seven deadly Sins",
     "Violet Evergarden",
-    "Kimi no Na wa:Your Name"
+    "Kimi no Na wa:Your Name",
+    "A silent voice",
+    "The tunnel of summer" 
 
 ]
 

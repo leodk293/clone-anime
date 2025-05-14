@@ -4,7 +4,7 @@ import Link from "next/link";
 import Loader from "@/app/components/loader/Loader";
 import ReadMore from "@/app/components/readMore";
 import SearchManga from "@/app/components/SearchManga";
-
+import Image from "next/image";
 import { nanoid } from "nanoid";
 
 const ITEMS_PER_PAGE = 6;
@@ -107,10 +107,15 @@ export default function MangaPage() {
         {mangaList.data.slice(startIndex, endIndex).map((manga) =>
           manga.entry.map((element) => (
             <div key={nanoid(10)} className=" flex flex-col gap-2">
-              <Link href={`/manga/data/${element.mal_id}`} className="w-full flex justify-center">
+              <Link
+                href={`/manga/data/${element.mal_id}`}
+                className="w-full flex justify-center"
+              >
                 <div className="flex flex-col gap-2 group w-full max-w-[200px]">
                   <div className="relative overflow-hidden w-full aspect-[2/3] shadow-md rounded-lg">
-                    <img
+                    <Image
+                      width={200}
+                      height={300}
                       alt={element.title}
                       src={element.images.jpg.large_image_url}
                       className="w-full h-full object-cover border border-gray-200
@@ -152,7 +157,7 @@ export default function MangaPage() {
           </div>
 
           <div className="lg:w-80">
-            <SearchManga/>
+            <SearchManga />
           </div>
         </div>
       </div>

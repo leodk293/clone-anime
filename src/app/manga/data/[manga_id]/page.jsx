@@ -6,6 +6,7 @@ import { nanoid } from "nanoid";
 import Loader from "@/app/components/loader/Loader";
 import ReadMore from "@/app/components/readMore";
 import SearchManga from "@/app/components/SearchManga";
+import Image from "next/image";
 import "./styles.css";
 
 const InfoItem = ({ label, value }) => {
@@ -164,7 +165,9 @@ export default function MangaData({ params }) {
             <div className="flex flex-col gap-5 md:mt-5">
               <div className="flex flex-wrap gap-10">
                 <div className="self-center relative group">
-                  <img
+                  <Image
+                    width={200}
+                    height={300}
                     className="self-center border border-gray-700 object-cover md:h-[350px] w-full"
                     src={data.images.jpg.image_url}
                     alt={data.title}
@@ -251,7 +254,9 @@ export default function MangaData({ params }) {
                         href={`/manga/data/${id}/manga-character/${character.character.mal_id}`}
                       >
                         <div className=" border border-gray-300 bg-white shadow rounded-[5px] p-1 w-32 sm:w-40 overflow-hidden hover:bg-slate-100 duration-500 flex flex-col items-center gap-1">
-                          <img
+                          <Image
+                            width={100}
+                            height={100}
                             className="w-full h-48 sm:h-56 object-cover rounded-lg"
                             src={character.character.images.jpg.image_url}
                             alt={character.character.name}
@@ -295,7 +300,9 @@ export default function MangaData({ params }) {
                         href={`/manga/data/${manga.entry.mal_id}`}
                       >
                         <div className=" bg-red-400 shadow rounded-[5px] p-1 w-32 sm:w-40 overflow-hidden hover:opacity-90 duration-500">
-                          <img
+                          <Image
+                            width={100}
+                            height={100}
                             className="w-full h-48 sm:h-56 object-cover rounded-lg"
                             src={manga.entry.images.jpg.image_url}
                             alt={manga.entry.title}

@@ -4,7 +4,7 @@ import Link from "next/link";
 import SearchAnime from "../components/Search";
 import Loader from "../components/loader/Loader";
 import ReadMore from "../components/readMore";
-
+import Image from "next/image";
 import { nanoid } from "nanoid";
 
 export default function Characters() {
@@ -76,6 +76,8 @@ export default function Characters() {
                           <div className="flex flex-col gap-2 group w-full max-w-[200px]">
                             <div className="relative overflow-hidden w-full aspect-[2/3] shadow-md rounded-lg">
                               <img
+                                //width={400}
+                                //height={300}
                                 alt={character.name}
                                 src={character.images.jpg.image_url}
                                 className="w-full h-full object-cover border border-gray-200
@@ -86,7 +88,7 @@ export default function Characters() {
                           </div>
                         </Link>
                         <div className="w-full px-2">
-                          <ReadMore text={character.name} maxLength={10} />
+                          <ReadMore text={character.name} maxLength={20} />
                         </div>
                       </div>
                     ))}

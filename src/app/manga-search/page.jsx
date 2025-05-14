@@ -6,7 +6,7 @@ import { nanoid } from "nanoid";
 import Loader from "../components/loader/Loader";
 import ReadMore from "../components/readMore";
 import SearchManga from "../components/SearchManga";
-
+import Image from "next/image";
 
 const MangaCard = ({ manga }) => (
   <div className="flex flex-col gap-2">
@@ -16,7 +16,9 @@ const MangaCard = ({ manga }) => (
     >
       <div className="flex flex-col gap-2 group w-full max-w-[200px]">
         <div className="relative overflow-hidden w-full aspect-[2/3] shadow-md rounded-lg">
-          <img
+          <Image
+            width={200}
+            height={300}
             alt={manga.title}
             src={manga.images.jpg.large_image_url}
             loading="lazy"
@@ -28,11 +30,10 @@ const MangaCard = ({ manga }) => (
       </div>
     </Link>
     <div className="w-full px-2">
-      <ReadMore text={manga.title} maxLength={10} />
+      <ReadMore text={manga.title} maxLength={20} />
     </div>
   </div>
 );
-
 
 const SearchHeader = ({ title }) => (
   <header className="flex flex-col gap-2">
@@ -43,7 +44,6 @@ const SearchHeader = ({ title }) => (
   </header>
 );
 
-
 const MangaGrid = ({ mangas }) => (
   <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 md:gap-8 w-full justify-items-center">
     {mangas.map((manga) => (
@@ -51,7 +51,6 @@ const MangaGrid = ({ mangas }) => (
     ))}
   </div>
 );
-
 
 function SearchPageContent() {
   const searchParams = useSearchParams();
@@ -141,7 +140,6 @@ function SearchPageContent() {
     </div>
   );
 }
-
 
 export default function SearchPage() {
   return (

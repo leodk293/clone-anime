@@ -6,7 +6,7 @@ import { nanoid } from "nanoid";
 import Loader from "../components/loader/Loader";
 import ReadMore from "../components/readMore";
 import SearchAnime from "../components/Search";
-
+import Image from "next/image";
 
 const AnimeCard = ({ anime }) => (
   <div className="flex flex-col gap-2">
@@ -16,7 +16,9 @@ const AnimeCard = ({ anime }) => (
     >
       <div className="flex flex-col gap-2 group w-full max-w-[200px]">
         <div className="relative overflow-hidden w-full aspect-[2/3] shadow-md rounded-lg">
-          <img
+          <Image
+            width={200}
+            height={300}
             alt={anime.title}
             src={anime.images.jpg.large_image_url}
             loading="lazy"

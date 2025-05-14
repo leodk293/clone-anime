@@ -4,6 +4,7 @@ import { Book } from "lucide-react";
 import ReadMore from "@/app/components/readMore";
 import Loader from "@/app/components/loader/Loader";
 import SearchManga from "@/app/components/SearchManga";
+import Image from "next/image";
 
 const InfoItem = ({ label, value }) => {
   if (!value) return null;
@@ -98,7 +99,9 @@ export default function Character({ params }) {
             <div className="flex flex-col gap-3 sm:gap-5 md:mt-3">
               <div className="flex flex-col sm:flex-row flex-wrap gap-5 sm:gap-8 lg:gap-10">
                 <div className="self-start relative group">
-                  <img
+                  <Image
+                    width={200}
+                    height={300}
                     className="self-start border border-gray-700 object-cover md:h-[350px] w-full"
                     src={characterData.data.images.jpg.image_url}
                     alt={characterData.data.name}

@@ -4,6 +4,7 @@ import SearchAnime from "@/app/components/Search";
 import Loader from "@/app/components/loader/Loader";
 import ReadMore from "@/app/components/readMore";
 import Link from "next/link";
+import Image from "next/image";
 
 import "../../globals.css";
 import { nanoid } from "nanoid";
@@ -66,7 +67,9 @@ export default function List({ params }) {
 
     if (animeList.data.length === 0) {
       return (
-        <p className="text-lg font-bold sm:text-xl px-4 text-center">No anime found.</p>
+        <p className="text-lg font-bold sm:text-xl px-4 text-center">
+          No anime found.
+        </p>
       );
     }
 
@@ -75,11 +78,16 @@ export default function List({ params }) {
         {animeList.data.slice(0, 6).map((anime) =>
           anime.entry.map((element) => (
             <div key={nanoid(10)} className="flex flex-col gap-2">
-              <Link className="w-full flex justify-center" href={`/anime/${element.mal_id}`}>
+              <Link
+                className="w-full flex justify-center"
+                href={`/anime/${element.mal_id}`}
+              >
                 <div className="w-full flex justify-center">
                   <div className="flex flex-col gap-2 group w-full max-w-[200px]">
                     <div className="relative overflow-hidden w-full aspect-[2/3] shadow-md rounded-lg">
-                      <img
+                      <Image
+                        width={200}
+                        height={300}
                         alt={element.title}
                         src={element.images.jpg.large_image_url}
                         className="w-full h-full object-cover border border-gray-200
@@ -92,7 +100,7 @@ export default function List({ params }) {
               </Link>
 
               <div className="w-full px-2">
-                <ReadMore text={element.title} maxLength={10} />
+                <ReadMore text={element.title} maxLength={20} />
               </div>
             </div>
           ))

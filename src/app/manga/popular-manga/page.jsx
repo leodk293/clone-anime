@@ -4,6 +4,7 @@ import Link from "next/link";
 import SearchManga from "@/app/components/SearchManga";
 import ReadMore from "@/app/components/readMore";
 import Loader from "@/app/components/loader/Loader";
+import Image from "next/image";
 import { nanoid } from "nanoid";
 
 export default function PopularManga() {
@@ -70,10 +71,15 @@ export default function PopularManga() {
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 md:gap-8 w-full justify-items-center">
         {popularManga.data.map((manga) => (
           <div className=" flex flex-col gap-2" key={nanoid(10)}>
-            <Link href={`/manga/data/${manga.mal_id}`} className="w-full flex justify-center">
+            <Link
+              href={`/manga/data/${manga.mal_id}`}
+              className="w-full flex justify-center"
+            >
               <div className="flex flex-col gap-2 group w-full max-w-[200px]">
                 <div className="relative overflow-hidden w-full aspect-[2/3] shadow-md rounded-lg">
-                  <img
+                  <Image
+                    width={200}
+                    height={300}
                     alt={manga.title}
                     src={manga.images.jpg.large_image_url}
                     className="w-full h-full object-cover border border-gray-200
@@ -84,7 +90,7 @@ export default function PopularManga() {
               </div>
             </Link>
             <div className="w-full px-2">
-              <ReadMore text={manga.title} maxLength={10} />
+              <ReadMore text={manga.title} maxLength={20} />
             </div>
           </div>
         ))}

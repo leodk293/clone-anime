@@ -4,7 +4,7 @@ import Link from "next/link";
 import SearchAnime from "../components/Search";
 import Loader from "../components/loader/Loader";
 import ReadMore from "../components/readMore";
-
+import Image from "next/image";
 import { nanoid } from "nanoid";
 
 export default function Airing() {
@@ -77,7 +77,9 @@ export default function Airing() {
             >
               <div className="flex flex-col gap-2 group w-full max-w-[200px]">
                 <div className="relative overflow-hidden w-full aspect-[2/3] shadow-md rounded-lg">
-                  <img
+                  <Image
+                    width={200}
+                    height={300}
                     alt={anime.title}
                     src={anime.images.jpg.large_image_url}
                     className="w-full h-full object-cover border border-gray-200
@@ -88,7 +90,7 @@ export default function Airing() {
               </div>
             </Link>
             <div className="w-full px-2">
-              <ReadMore text={anime.title} maxLength={10} />
+              <ReadMore text={anime.title} maxLength={20} />
             </div>
           </div>
         ))}
