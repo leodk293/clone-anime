@@ -73,8 +73,7 @@ export default function AnimePage({ params }) {
     data: null,
     loading: false,
   });
-
-  const [episodeTitles, setEpisodeTitles] = useState({});
+  const [episodes, setEpisodes] = useState([]);
 
   const resolvedParams = use(params);
   const id = resolvedParams.anime_id;
@@ -93,28 +92,30 @@ export default function AnimePage({ params }) {
           ...data,
           studios: data.studios.map((s) => s.name),
           genres: data.genres.map((g) => g.name).join(", "),
-          episodes: Array.from({ length: data.episodes }, (_, i) => i + 1),
         },
         loading: false,
       });
-
-      if (data.episodes > 0) {
-        const episodeResponse = await fetch(
-          `https://api.jikan.moe/v4/anime/${id}/episodes`
-        );
-        if (episodeResponse.ok) {
-          const episodeData = await episodeResponse.json();
-          const titles = Object.fromEntries(
-            episodeData.data.map((episode) => [episode.mal_id, episode.title])
-          );
-          setEpisodeTitles(titles);
-        }
-      }
     } catch (error) {
       console.error("Error fetching anime data:", error);
       setAnimeData({ error: true, data: null, loading: false });
     }
   };
+
+  async function fetchEpisodes() {
+    try {
+      const response = await fetch(
+        `https://api.jikan.moe/v4/anime/${id}/episodes`
+      );
+      if (!response.ok) {
+        throw new Error(`An error has occurred : ${response.status}`);
+      }
+      const result = await response.json();
+      setEpisodes(result.data);
+    } catch (error) {
+      console.error("Error fetching episodes:", error.message);
+      setEpisodes([]);
+    }
+  }
 
   const [characters, setCharacters] = useState([]);
 
@@ -197,6 +198,7 @@ export default function AnimePage({ params }) {
   useEffect(() => {
     fetchAnimeData();
     fetchAnimeCharacters();
+    fetchEpisodes();
   }, [id]);
 
   if (animeData.error) {
@@ -306,32 +308,32 @@ export default function AnimePage({ params }) {
             <div className="mt-10">
               <SectionHeader
                 title={`Episodes List ${
-                  data.episodes.length > 0 ? `(${data.episodes.length})` : ""
+                  episodes.length > 0 ? `(${episodes.length})` : ""
                 }`}
               />
 
               <div className="mt-10 flex flex-col gap-2">
-                {data.episodes.length > 0 ? (
-                  data.episodes.map((episode) => (
+                {episodes.length > 0 ? (
+                  episodes.map((episode) => (
                     <section key={nanoid(10)} className="flex flex-col gap-2">
                       <Link
                         className="rounded-[5px] p-1 hover:bg-[#f1f1f1] duration-500"
-                        href={`/anime/${id}/episode/${episode}`}
+                        href={`/anime/${id}/episode/${episode.mal_id}`}
                       >
                         <div className="font-semibold text-[13px] flex flex-row justify-between md:text-[16px] ">
                           <p className="text-black">
-                            {data.title} - {episode}
+                            {data.title} - {episode.mal_id}
                           </p>
-                          {episodeTitles[episode] ? (
+                          {episode.title ? (
                             <p className="text-gray-500 italic">
-                              {episodeTitles[episode]}
+                              {episode.title}
                             </p>
                           ) : (
                             <p className=" italic">Searching for title...</p>
                           )}
                         </div>
                       </Link>
-                      {episode !== data.episodes.length && (
+                      {episode.mal_id !== episodes.length && (
                         <span className="w-full h-[1px] bg-gray-400" />
                       )}
                     </section>

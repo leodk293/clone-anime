@@ -68,7 +68,7 @@ export default function RootLayout({ children }) {
             <span className=" w-full h-[1px] bg-gray-400 " />
           </div>
 
-          <div className=" mx-4 mt-10 m-auto">{children}</div>
+          <div className=" min-h-screen mx-4 mt-10 m-auto">{children}</div>
 
           <Footer />
         </NextAuthProvider>

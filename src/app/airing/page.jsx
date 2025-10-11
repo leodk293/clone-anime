@@ -19,7 +19,7 @@ export default function Airing() {
 
     try {
       const response = await fetch(
-        "https://api.jikan.moe/v4/top/anime?filter=airing"
+        "https://api.jikan.moe/v4/seasons/now"
       );
       if (!response.ok) {
         throw new Error(`An error has occurred: ${response.status}`);
