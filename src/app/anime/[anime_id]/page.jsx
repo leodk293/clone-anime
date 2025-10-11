@@ -308,12 +308,14 @@ export default function AnimePage({ params }) {
             <div className="mt-10">
               <SectionHeader
                 title={`Episodes List ${
-                  episodes.length > 0 ? `(${episodes.length})` : ""
+                  episodes && episodes.length && episodes.length > 0
+                    ? `(${episodes.length})`
+                    : ""
                 }`}
               />
 
               <div className="mt-10 flex flex-col gap-2">
-                {episodes.length > 0 ? (
+                {episodes && episodes.length > 0 && episodes.length ? (
                   episodes.map((episode) => (
                     <section key={nanoid(10)} className="flex flex-col gap-2">
                       <Link
@@ -346,7 +348,7 @@ export default function AnimePage({ params }) {
               </div>
             </div>
 
-            {characters.length > 0 ? (
+            {characters && characters.length && characters.length > 0 ? (
               <div className="flex flex-col gap-5 mt-10">
                 <h1 className="font-bold md:text-xl">
                   <span className="font-extrabold">{data.title}</span>&apos;s
